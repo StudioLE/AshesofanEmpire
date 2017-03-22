@@ -1,0 +1,15 @@
+{
+  "name": "AshesofanEmpire",
+  "description": "Map for the Ashes of an Empire Campaign",
+  "version": "0.0.1",
+  "homepage": "https://github.com/StudioLE/AshesofanEmpire",
+  "author": {
+    "name": "Laurence Elsdon",
+    "email": "hi@studiole.uk",
+    "url": "https://studiole.uk"
+  },
+  "license": "",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}

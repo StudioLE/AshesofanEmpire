@@ -1,0 +1,24 @@
+{
+  "name": "AshesofanEmpire",
+  "description": "Map for the Ashes of an Empire Campaign",
+  "version": "0.0.1",
+  "repository": "https://github.com/StudioLE/AshesofanEmpire",
+  "author": {
+    "name": "Laurence Elsdon",
+    "email": "hi@studiole.uk",
+    "url": "https://studiole.uk"
+  },
+  "license": "",
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "dependencies": {
+    "bower": "^1.3.1",
+    "gulp": "^3.9.0",
+    "gulp-bump": "^2.7.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.1"
+  }
+}
