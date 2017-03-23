@@ -11,7 +11,8 @@ var style = {
     fillOpacity: 0.75,
     strokeColor: '#000',
     strokeOpacity: 0.5,
-    strokeWeight: 2
+    strokeWeight: 2,
+    zIndex: 0
   }
 }
 
@@ -91,17 +92,109 @@ hexagon.draw.polygon = function(map,position,radius){
   return polygon
 }
 
+var overlay
+IconOverlay.prototype = new google.maps.OverlayView()
+
+/** @constructor */
+function IconOverlay(bounds, image, map) {
+
+  // Initialize all properties.
+  this.bounds_ = bounds;
+  this.image_ = image;
+  this.map_ = map;
+
+  // Define a property to hold the image's div. We'll
+  // actually create this div upon receipt of the onAdd()
+  // method so we'll leave it null for now.
+  this.div_ = null;
+
+  // Explicitly call setMap on this overlay.
+  this.setMap(map);
+}
+
+/**
+ * onAdd is called when the map's panes are ready and the overlay has been
+ * added to the map.
+ */
+IconOverlay.prototype.onAdd = function() {
+
+  var div = document.createElement('div');
+  div.style.borderStyle = 'none';
+  div.style.borderWidth = '0px';
+  div.style.position = 'absolute';
+
+  // Create the img element and attach it to the div.
+  var img = document.createElement('img');
+  img.src = this.image_;
+  img.style.width = '100%';
+  img.style.height = '100%';
+  img.style.position = 'absolute';
+  div.appendChild(img);
+
+  this.div_ = div;
+
+  // Add the element to the "overlayLayer" pane.
+  var panes = this.getPanes();
+  // panes.overlayLayer.appendChild(div);
+  panes.floatPane.appendChild(div);
+};
+
+IconOverlay.prototype.draw = function() {
+
+  // We use the south-west and north-east
+  // coordinates of the overlay to peg it to the correct position and size.
+  // To do this, we need to retrieve the projection from the overlay.
+  var overlayProjection = this.getProjection();
+
+  // Retrieve the south-west and north-east coordinates of this overlay
+  // in LatLngs and convert them to pixel coordinates.
+  // We'll use these coordinates to resize the div.
+  var sw = overlayProjection.fromLatLngToDivPixel(this.bounds_.getSouthWest());
+  var ne = overlayProjection.fromLatLngToDivPixel(this.bounds_.getNorthEast());
+
+  // Resize the image's div to fit the indicated dimensions.
+  var div = this.div_;
+  div.style.left = sw.x + 'px';
+  div.style.top = ne.y + 'px';
+  div.style.width = (ne.x - sw.x) + 'px';
+  div.style.height = (sw.y - ne.y) + 'px';
+};
+
+// The onRemove() method will be called automatically from the API if
+// we ever set the overlay's map property to 'null'.
+IconOverlay.prototype.onRemove = function() {
+  this.div_.parentNode.removeChild(this.div_);
+  this.div_ = null;
+};
+
 // Initilise Google Maps
 var initMap = function () {
   var origin = new google.maps.LatLng(-13.710816, -76.203229)
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
+    zoom: 13,
     center: origin
   });
   var marker = new google.maps.Marker({
     position: origin,
     map: map
   });
+
+  // Extend Polygon class for find center method
+  // http://stackoverflow.com/a/13772082/247218
+  google.maps.Polygon.prototype.bounds = function() {
+    var bounds = new google.maps.LatLngBounds()
+    this.getPath().forEach(function(element, index) {
+      bounds.extend(element)
+    })
+    return bounds
+  }
+
+  // Extend Polygon class for find center method
+  // http://stackoverflow.com/a/13772082/247218
+  google.maps.Polygon.prototype.center = function() {
+    return this.bounds().getCenter()
+    // return bounds
+  }
 
   var start = origin
 
@@ -114,13 +207,166 @@ var initMap = function () {
   // Create our grid of hexagons
   grid = hexagon.draw.gridHorizontal(map, start, hexagon.radius, hexagon.horizontal);
 
+  // Hexagon mouseover events
+  _.each(grid, function(column, x) {
+    _.each(column, function(item, y) {
+      // On mouseover
+      google.maps.event.addListener(item, 'mouseover', function() {
+        this.setOptions({
+          strokeColor: '#fff',
+          zIndex: 1
+        })
+        $('#coords').html('(' + x + ', ' + y + ')')
+      })
+
+      // On mouseout
+      google.maps.event.addListener(item, 'mouseout', function() {
+        this.setOptions({
+          strokeColor: style.default.strokeColor,
+          zIndex: 0
+        })
+      })
+    })
+  })
+
   // Colour the sea
-  _.each(grid, function(row, key) {
-    if(key < distances.sea.horizontal) {
-      _.each(row, function(column, key) {
-        column.setOptions(style.sea)
+  _.each(grid, function(column, x) {
+    if(x < distances.sea.horizontal) {
+      _.each(column, function(item, y) {
+        if(x > 50 - y && x > 7) {
+          item.setOptions(style.land)
+        }
+        else if(x > y && x > 11) {
+          item.setOptions(style.land)
+        }
+        else {
+          item.setOptions(style.sea)
+        }
       })
     }
   })
 
+  grid[19][31].setOptions(style.land)
+  grid[19][30].setOptions(style.land)
+  grid[19][26].setOptions(style.land)
+  grid[19][25].setOptions(style.land)
+  grid[20][22].setOptions(style.sea)
+
+
+
+  console.log(grid[21][26].getPath())
+  console.log(grid[21][26].center())
+
+  // var m = new google.maps.Marker({
+  //   position: grid[21][26].center(),
+  //   // label: labels[labelIndex++ % labels.length],
+  //   map: map,
+  //   icon: 'img/icons/dock-01-1x.png',
+  //   size: 24
+  // });
+  
+
+  // var imageBounds = {
+  //   north: grid[21][26].bounds().getNorthEast().lng(),
+  //   south: grid[21][26].bounds().getSouthWest().lng(),
+  //   east: grid[21][26].bounds().getNorthEast().lat(),
+  //   west: grid[21][26].bounds().getSouthWest().lat()
+  // };
+
+  // console.log(grid[21][26].bounds().getNorthEast())
+
+  // console.log(grid[21][26].bounds().getSouthWest())
+
+
+
+  var b = google.maps.LatLngBounds(
+    grid[21][26].bounds().getNorthEast(),
+    grid[22][27].bounds().getSouthWest()
+  )
+
+  // var g = new google.maps.GroundOverlay(
+  // // 'img/icons/dock-01-1x.png',
+  // 'http://www.newstatesman.com/sites/default/files/styles/nodeimage/public/blogs_2016/05/hubble_image.jpg',
+  // grid[21][26].bounds())
+
+
+  // g.setMap(map);
+
+
+  
+
+  new IconOverlay(
+    grid[19][28].bounds(),
+    'img/icons/dock-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[19][30].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[20][29].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[20][30].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[21][29].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[21][30].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[22][29].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[22][30].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[23][29].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[23][30].bounds(),
+    'img/icons/ruins-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[22][31].bounds(),
+    'img/icons/temple-01-1x.png',
+    map
+  )
+
+  new IconOverlay(
+    grid[21][27].bounds(),
+    'img/icons/town-01-1x.png',
+    map
+  )
+
 }
+
+google.maps.event.addDomListener(window, 'load', initMap);
