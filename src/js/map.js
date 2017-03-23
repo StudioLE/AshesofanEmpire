@@ -9,8 +9,8 @@ var style = {
   default: {
     fillColor: '#a69375',
     fillOpacity: 0.75,
-    strokeColor: '#000',
-    strokeOpacity: 0.5,
+    strokeColor: '#fff',
+    strokeOpacity: 0.25,
     strokeWeight: 2,
     zIndex: 0
   }
@@ -96,12 +96,13 @@ var overlay
 IconOverlay.prototype = new google.maps.OverlayView()
 
 /** @constructor */
-function IconOverlay(bounds, image, map) {
+function IconOverlay(bounds, image, map, scale) {
 
   // Initialize all properties.
   this.bounds_ = bounds;
   this.image_ = image;
   this.map_ = map;
+  this.scale_ = scale || 1
 
   // Define a property to hold the image's div. We'll
   // actually create this div upon receipt of the onAdd()
@@ -154,11 +155,30 @@ IconOverlay.prototype.draw = function() {
 
   // Resize the image's div to fit the indicated dimensions.
   var div = this.div_;
+
+  var width = (ne.x - sw.x) * this.scale_
+  var height = (sw.y - ne.y) * this.scale_
+
+
   div.style.left = sw.x + 'px';
   div.style.top = ne.y + 'px';
-  div.style.width = (ne.x - sw.x) + 'px';
-  div.style.height = (sw.y - ne.y) + 'px';
+  div.style.width = width + 'px';
+  div.style.height = height + 'px';
+
+  if(this.scale_ !== 1) {
+    div.style.left = sw.x - width / (2 * this.scale_) + 'px';
+    div.style.top = ne.y - height / (2 * this.scale_) + 'px';
+  }
+
+
 };
+
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
 // The onRemove() method will be called automatically from the API if
 // we ever set the overlay's map property to 'null'.
@@ -171,7 +191,7 @@ IconOverlay.prototype.onRemove = function() {
 var initMap = function () {
   var origin = new google.maps.LatLng(-13.710816, -76.203229)
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 13,
+    zoom: 12,
     center: origin
   });
   var marker = new google.maps.Marker({
@@ -213,7 +233,7 @@ var initMap = function () {
       // On mouseover
       google.maps.event.addListener(item, 'mouseover', function() {
         this.setOptions({
-          strokeColor: '#fff',
+          strokeColor: '#000',
           zIndex: 1
         })
         $('#coords').html('(' + x + ', ' + y + ')')
@@ -246,6 +266,8 @@ var initMap = function () {
     }
   })
 
+
+  // Add some land to the bay
   grid[19][31].setOptions(style.land)
   grid[19][30].setOptions(style.land)
   grid[19][26].setOptions(style.land)
@@ -253,118 +275,92 @@ var initMap = function () {
   grid[20][22].setOptions(style.sea)
 
 
-
-  console.log(grid[21][26].getPath())
-  console.log(grid[21][26].center())
-
-  // var m = new google.maps.Marker({
-  //   position: grid[21][26].center(),
-  //   // label: labels[labelIndex++ % labels.length],
-  //   map: map,
-  //   icon: 'img/icons/dock-01-1x.png',
-  //   size: 24
-  // });
-  
-
-  // var imageBounds = {
-  //   north: grid[21][26].bounds().getNorthEast().lng(),
-  //   south: grid[21][26].bounds().getSouthWest().lng(),
-  //   east: grid[21][26].bounds().getNorthEast().lat(),
-  //   west: grid[21][26].bounds().getSouthWest().lat()
-  // };
-
-  // console.log(grid[21][26].bounds().getNorthEast())
-
-  // console.log(grid[21][26].bounds().getSouthWest())
+  // Draw Northern Mountains
+  for(var x = 0; x < 20; x++) {
+    for(var y = 0; y < 4; y++) {
+      new IconOverlay(
+        grid[16 + x * 2][39 - y * 1].bounds(),
+        'img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
+        map,
+        2
+      )
+      new IconOverlay(
+        grid[17 + x * 2][40 - y * 1].bounds(),
+        'img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
+        map,
+        2
+      )
+    }
+  }
 
 
-
-  var b = google.maps.LatLngBounds(
-    grid[21][26].bounds().getNorthEast(),
-    grid[22][27].bounds().getSouthWest()
-  )
-
-  // var g = new google.maps.GroundOverlay(
-  // // 'img/icons/dock-01-1x.png',
-  // 'http://www.newstatesman.com/sites/default/files/styles/nodeimage/public/blogs_2016/05/hubble_image.jpg',
-  // grid[21][26].bounds())
-
-
-  // g.setMap(map);
-
-
-  
-
-  new IconOverlay(
-    grid[19][28].bounds(),
-    'img/icons/dock-01-1x.png',
-    map
-  )
-
+  // Draw Ruins of Haven
   new IconOverlay(
     grid[19][30].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[20][29].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[20][30].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[21][29].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[21][30].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[22][29].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[22][30].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[23][29].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
-
   new IconOverlay(
     grid[23][30].bounds(),
     'img/icons/ruins-01-1x.png',
     map
   )
 
+  // Draw docks
+  new IconOverlay(
+    grid[19][28].bounds(),
+    'img/icons/dock-01-1x.png',
+    map
+  )
+
+  // Draw temple
   new IconOverlay(
     grid[22][31].bounds(),
     'img/icons/temple-01-1x.png',
     map
   )
 
+  // Draw town of Haven
   new IconOverlay(
     grid[21][27].bounds(),
     'img/icons/town-01-1x.png',
-    map
+    map,
+    2
   )
 
 }
