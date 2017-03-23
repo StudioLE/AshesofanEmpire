@@ -31,30 +31,30 @@ var hexagon = {
   draw: {},
   grid: [],
   width: function() {
-    return this.radius * 2 * Math.sqrt(3)/2;
+    return this.radius * 3;
   },
   height: function() {
-    return this.radius * 3;
+    return this.radius * 2 * Math.sqrt(3)/2;
   }
 }
 
-hexagon.draw.gridVertical = function(map, startPosition, radius,count) {
+hexagon.draw.gridHorizontal = function(map, startPosition, radius,count) {
   var curPos = startPosition;
   var column = []
 
   // Create Column
   for(var i = 0; i < count; i++) {
-    column = column.concat(hexagon.draw.gridHorizontal(map, curPos, hexagon.radius, hexagon.horizontal))
+    column = column.concat(hexagon.draw.gridVertical(map, curPos, hexagon.radius, hexagon.vertical))
 
     // Update the current position to draw next hexagon
-    curPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.height(), 0);
+    curPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.width(), 90);
   }
   return column
 }
 
 // Draw hexagon grid from
 // http://stackoverflow.com/questions/11761738/how-can-i-make-a-google-maps-api-v3-hexagon-tiled-map-preferably-coordinate-bas
-hexagon.draw.gridHorizontal = function(map, startPosition, radius,count) {
+hexagon.draw.gridVertical = function(map, startPosition, radius,count) {
   var curPos = startPosition;
   var row = []
   var row_two = []
@@ -65,11 +65,11 @@ hexagon.draw.gridHorizontal = function(map, startPosition, radius,count) {
     row.push(hexagon.draw.polygon(map, curPos, radius))
 
     // Create a second hexagon above and 30 degrees across
-    secPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.width(), 30);
+    secPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.height(), 60);
     row_two.push(hexagon.draw.polygon(map, secPos, radius))
 
     // Update the current position to draw next hexagon
-    curPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.width(), 90);
+    curPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.height(), 0);
   }
   return [row, row_two]
 }
@@ -77,7 +77,7 @@ hexagon.draw.gridHorizontal = function(map, startPosition, radius,count) {
 hexagon.draw.polygon = function(map,position,radius){
   var coordinates = [];
   // Add a coordinate at every 60 degree angle of a circle
-  for(var angle = 0; angle < 360; angle += 60) {
+  for(var angle = 30; angle < 360; angle += 60) {
     coordinates.push(google.maps.geometry.spherical.computeOffset(position, radius, angle));
   }
 
@@ -105,26 +105,22 @@ var initMap = function () {
 
   var start = origin
 
-  // Shift start so origin isbeside sea
-  start = google.maps.geometry.spherical.computeOffset(start, hexagon.width() * distances.sea.horizontal, -90)
+  // Shift start so origin is beside sea
+  start = google.maps.geometry.spherical.computeOffset(start, hexagon.width() * distances.sea.horizontal / 2, -90)
 
   // Shift start so origin is at centre
   start = google.maps.geometry.spherical.computeOffset(start, hexagon.height() * hexagon.horizontal / 2, 180)
 
   // Create our grid of hexagons
-  grid = hexagon.draw.gridVertical(map, start, hexagon.radius, hexagon.vertical);
+  grid = hexagon.draw.gridHorizontal(map, start, hexagon.radius, hexagon.horizontal);
 
   // Colour the sea
   _.each(grid, function(row, key) {
-    if(true) {
+    if(key < distances.sea.horizontal) {
       _.each(row, function(column, key) {
-        if(key < distances.sea.horizontal) {
-          column.setOptions(style.sea)
-        }
+        column.setOptions(style.sea)
       })
     }
   })
-
-
 
 }
