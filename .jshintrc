@@ -1,7 +1,12 @@
 {
+  "globalstrict": true,
   "globals": {
+    "window": false,
     "document": false,
-    "console": false
+    "console": false,
+    "google": false,
+    "$": false,
+    "_": false
   },
   "asi": true
 }

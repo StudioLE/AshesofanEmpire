@@ -1,3 +1,5 @@
+'use strict'
+
 // Bespoke styles
 var style = {
   land: {
@@ -66,7 +68,7 @@ hexagon.draw.gridVertical = function(map, startPosition, radius,count) {
     row.push(hexagon.draw.polygon(map, curPos, radius))
 
     // Create a second hexagon above and 30 degrees across
-    secPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.height(), 60);
+    var secPos = google.maps.geometry.spherical.computeOffset(curPos, hexagon.height(), 60);
     row_two.push(hexagon.draw.polygon(map, secPos, radius))
 
     // Update the current position to draw next hexagon
@@ -164,9 +166,7 @@ IconOverlay.prototype.draw = function() {
     div.style.top = ne.y - height / (2 * this.scale_) + 'px';
   }
 
-
 };
-
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -214,12 +214,10 @@ var initMap = function () {
 
   // Shift start so origin is beside sea
   start = google.maps.geometry.spherical.computeOffset(start, hexagon.width() * distances.sea.horizontal / 2, -90)
-
   // Shift start so origin is at centre
   start = google.maps.geometry.spherical.computeOffset(start, hexagon.height() * hexagon.horizontal / 2, 180)
-
   // Create our grid of hexagons
-  grid = hexagon.draw.gridHorizontal(map, start, hexagon.radius, hexagon.horizontal);
+  var grid = hexagon.draw.gridHorizontal(map, start, hexagon.radius, hexagon.horizontal);
 
   // Hexagon mouseover events
   _.each(grid, function(column, x) {
@@ -260,14 +258,12 @@ var initMap = function () {
     }
   })
 
-
   // Add some land to the bay
   grid[19][31].setOptions(style.land)
   grid[19][30].setOptions(style.land)
   grid[19][26].setOptions(style.land)
   grid[19][25].setOptions(style.land)
   grid[20][22].setOptions(style.sea)
-
 
   // Draw Northern Mountains
   for(var x = 0; x < 20; x++) {
@@ -287,53 +283,26 @@ var initMap = function () {
     }
   }
 
-
   // Draw Ruins of Haven
-  new IconOverlay(
-    grid[19][30].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[20][29].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[20][30].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[21][29].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[21][30].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[22][29].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[22][30].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[23][29].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
-  new IconOverlay(
-    grid[23][30].bounds(),
-    'img/icons/ruins-01-1x.png',
-    map
-  )
+  var ruins = [
+    [19,30],
+    [20,29],
+    [20,30],
+    [21,28],
+    [21,29],
+    [21,30],
+    [22,29],
+    [22,30],
+    [23,29],
+    [23,30]
+  ]
+  _.each(ruins, function(coord){
+    new IconOverlay(
+      grid[coord[0]][coord[1]].bounds(),
+      'img/icons/ruins-01-1x.png',
+      map
+    )
+  })
 
   // Draw docks
   new IconOverlay(
