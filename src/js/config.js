@@ -10,7 +10,7 @@ var style = {
   },
   default: {
     fillColor: '#a69375',
-    fillOpacity: 0.75,
+    fillOpacity: 0.5,
     strokeColor: '#fff',
     strokeOpacity: 0.25,
     strokeWeight: 2,

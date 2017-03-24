@@ -5,7 +5,11 @@ var initMap = function () {
   var origin = new google.maps.LatLng(-13.710816, -76.203229)
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 12,
-    center: origin
+    center: origin,
+    mapTypeControl: false,
+    scaleControl: true,
+    streetViewControl: false,
+    fullscreenControl: true
   })
   var marker = new google.maps.Marker({
     position: origin,
@@ -76,6 +80,36 @@ var initMap = function () {
       })
     }
   })
+
+  var imageBounds = {
+    north: grid[99][49].center().lat(),
+    east: grid[99][49].center().lng(),
+    south: grid[0][0].center().lat(),
+    west: grid[0][0].center().lng(),
+  }
+
+  // Add a textured background
+  var texture = new google.maps.GroundOverlay(
+    'img/textures/land-2-1x.jpg',
+    imageBounds
+  )
+  texture.setMap(map);
+
+  // Disable default Google Maps
+  var mt = function() {
+    this.getTile = function() {
+      var n = document.createElement('div');
+      n.style.background = '#ccc'
+      n.style.width = '256px'
+      n.style.height = '256px'
+      return n
+    }
+    this.tileSize = new google.maps.Size(256, 256)
+    this.maxZoom = 20
+  }
+
+  map.mapTypes.set('hidden', new mt)
+  map.setMapTypeId('hidden')
 
   // Add some land to the bay
   grid[19][31].setOptions(style.land)
