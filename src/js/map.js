@@ -123,21 +123,15 @@ IconOverlay.prototype.onAdd = function() {
   div.style.borderStyle = 'none';
   div.style.borderWidth = '0px';
   div.style.position = 'absolute';
-
-  // Create the img element and attach it to the div.
-  var img = document.createElement('img');
-  img.src = this.image_;
-  img.style.width = '100%';
-  img.style.height = '100%';
-  img.style.position = 'absolute';
-  div.appendChild(img);
+  div.style.zIndex = 30;
+  div.style.background = 'url(' + this.image_ + ') center center no-repeat'
+  div.style.backgroundSize = 'contain'
 
   this.div_ = div;
 
   // Add the element to the "overlayLayer" pane.
   var panes = this.getPanes();
-  // panes.overlayLayer.appendChild(div);
-  panes.floatPane.appendChild(div);
+  panes.overlayLayer.appendChild(div);
 };
 
 IconOverlay.prototype.draw = function() {
@@ -285,7 +279,7 @@ var initMap = function () {
         2
       )
       new IconOverlay(
-        grid[17 + x * 2][40 - y * 1].bounds(),
+        grid[17 + x * 2][39 - y * 1].bounds(),
         'img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
         map,
         2
