@@ -6,7 +6,11 @@
     "console": false,
     "google": false,
     "$": false,
-    "_": false
+    "_": false,
+    "IconOverlay": false,
+    "style": false,
+    "distances": false,
+    "grid": false
   },
   "asi": true
 }
