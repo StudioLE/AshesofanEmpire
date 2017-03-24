@@ -145,6 +145,17 @@ var initMap = function () {
   grid[19][25].setOptions(style.land)
   grid[20][22].setOptions(style.sea)
 
+  // Islands
+  grid[16][30].setOptions(style.land)
+  grid[13][28].setOptions(style.land)
+  grid[12][29].setOptions(style.land)
+  grid[14][21].setOptions(style.land)
+  grid[14][22].setOptions(style.land)
+  grid[13][22].setOptions(style.land)
+  grid[13][20].setOptions(style.land)
+  grid[14][20].setOptions(style.land)
+  grid[13][19].setOptions(style.land)
+
   // Draw Northern Mountains
   for(var x = 0; x < 20; x++) {
     for(var y = 0; y < 4; y++) {
@@ -208,6 +219,48 @@ var initMap = function () {
     2
   )
 
+  // Draw windmill
+  new IconOverlay(
+    grid[26][25].bounds(),
+    'img/icons/windmill-01-1x.png',
+    map,
+    1.5
+  )
+
+  // Swamp
+  grid[27][24].setOptions(style.sea)
+
+  // Draw The Manor
+  new IconOverlay(
+    grid[24][24].bounds(),
+    'img/icons/tower-01-1x.png',
+    map,
+    1.5
+  )
+
+  // Draw Logging Camp
+  new IconOverlay(
+    grid[22][25].bounds(),
+    'img/icons/outpost-01-1x.png',
+    map,
+    1.5
+  )
+
+  // Draw Farm
+  new IconOverlay(
+    grid[27][27].bounds(),
+    'img/icons/village-01-1x.png',
+    map,
+    1.5
+  )
+
+  // Draw Lighthouse
+  new IconOverlay(
+    grid[13][20].bounds(),
+    'img/icons/tower-02-1x.png',
+    map,
+    1.5
+  )
 }
 
 google.maps.event.addDomListener(window, 'load', initMap);

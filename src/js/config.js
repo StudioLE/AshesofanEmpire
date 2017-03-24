@@ -12,8 +12,8 @@ var style = {
     fillColor: '#a69375',
     fillOpacity: 0.5,
     strokeColor: '#fff',
-    strokeOpacity: 0.25,
-    strokeWeight: 2,
+    strokeOpacity: 0.2,
+    strokeWeight: 1,
     zIndex: 0
   }
 }
