@@ -16,8 +16,7 @@ var initMap = function () {
     map: map
   })
 
-  // Extend Polygon class for find center method
-  // http://stackoverflow.com/a/13772082/247218
+  // Extend Polygon class for find bounds method
   google.maps.Polygon.prototype.bounds = function() {
     var bounds = new google.maps.LatLngBounds()
     this.getPath().forEach(function(element, index) {
@@ -31,6 +30,34 @@ var initMap = function () {
   google.maps.Polygon.prototype.center = function() {
     return this.bounds().getCenter()
     // return bounds
+  }
+
+  // Extend LatLngBounds class for double bounds center method
+  google.maps.LatLngBounds.prototype.scale = function(scale) {
+    if(scale === 1) return this
+
+    var ne = this.getNorthEast()
+    var sw = this.getSouthWest()
+
+    var width = (ne.lng() - sw.lng())
+    var height = (sw.lat() - ne.lat())
+
+    var center = {
+      lng: ne.lng() - (width / 2),
+      lat: ne.lat() + (height / 2)
+    }
+
+    ne = {
+      lng: center.lng + (width * scale) / 2,
+      lat: center.lat - (height * scale) / 2
+    }
+
+    sw = {
+      lng: center.lng - (width * scale) / 2,
+      lat: center.lat + (height * scale) / 2
+    }
+
+    return new google.maps.LatLngBounds(sw, ne)
   }
 
   var start = origin
@@ -161,14 +188,16 @@ var initMap = function () {
   new IconOverlay(
     grid[19][28].bounds(),
     'img/icons/dock-01-1x.png',
-    map
+    map,
+    1.25
   )
 
   // Draw temple
   new IconOverlay(
     grid[22][31].bounds(),
     'img/icons/temple-01-1x.png',
-    map
+    map,
+    1.5
   )
 
   // Draw town of Haven

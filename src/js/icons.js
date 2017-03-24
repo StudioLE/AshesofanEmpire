@@ -7,10 +7,9 @@ IconOverlay.prototype = new google.maps.OverlayView()
 function IconOverlay(bounds, image, map, scale) {
 
   // Initialize all properties.
-  this.bounds_ = bounds
+  this.bounds_ = bounds.scale(scale || 1)
   this.image_ = image
   this.map_ = map
-  this.scale_ = scale || 1
 
   // Define a property to hold the image's div. We'll
   // actually create this div upon receipt of the onAdd()
@@ -34,6 +33,15 @@ IconOverlay.prototype.onAdd = function() {
   div.style.zIndex = 30
   div.style.background = 'url(' + this.image_ + ') center center no-repeat'
   div.style.backgroundSize = 'contain'
+  div.style.display = 'flex'
+  div.style.alignItems = 'center';
+  div.style.justifyContent = 'center';
+
+  var h2 = document.createElement('h2')
+
+  h2.innerHTML = 'Haven'
+
+  div.appendChild(h2)
 
   this.div_ = div
 
@@ -57,20 +65,10 @@ IconOverlay.prototype.draw = function() {
 
   // Resize the image's div to fit the indicated dimensions.
   var div = this.div_
-
-  var width = (ne.x - sw.x) * this.scale_
-  var height = (sw.y - ne.y) * this.scale_
-
-
   div.style.left = sw.x + 'px'
   div.style.top = ne.y + 'px'
-  div.style.width = width + 'px'
-  div.style.height = height + 'px'
-
-  if(this.scale_ !== 1) {
-    div.style.left = sw.x - width / (2 * this.scale_) + 'px'
-    div.style.top = ne.y - height / (2 * this.scale_) + 'px'
-  }
+  div.style.width = (ne.x - sw.x) + 'px'
+  div.style.height = (sw.y - ne.y) + 'px'
 
 }
 
