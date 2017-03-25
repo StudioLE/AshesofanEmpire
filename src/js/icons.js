@@ -18,6 +18,8 @@ function IconOverlay(bounds, image, map, scale) {
 
   // Explicitly call setMap on this overlay.
   this.setMap(map)
+
+  return this
 }
 
 /**
@@ -83,4 +85,61 @@ function getRandomInt(min, max) {
 IconOverlay.prototype.onRemove = function() {
   this.div_.parentNode.removeChild(this.div_)
   this.div_ = null
+}
+
+var icon = function(options) {
+
+  var hex = grid[options.x][options.y]
+
+  var i = new IconOverlay(
+    hex.bounds(),
+    options.icon,
+    map,
+    options.scale
+  )
+
+  if(options.title) {
+
+    var marker = new google.maps.Marker({
+      position: hex.center(),
+      map: map,
+      icon: {
+        path: google.maps.SymbolPath.CIRCLE,
+        // scale: 5,
+        fillOpacity: 0,
+        fillColor: '#fff',
+        // strokeOpacity: 0
+      },
+      label: {
+        text: options.title,
+        color: '#fff',
+        // fontWeight: 'bold'
+      },
+      opacity: 0
+    })
+
+    var infowindow = new google.maps.InfoWindow({
+      content: options.description
+    })
+
+    google.maps.event.addListener(hex, 'mouseover', function() {
+      marker.setOptions({
+        opacity: 1
+      })
+    })
+
+    google.maps.event.addListener(hex, 'mouseout', function() {
+      marker.setOptions({
+        opacity: 0
+      })
+    })
+
+    google.maps.event.addListener(hex, 'click', function() {
+      infowindow.open(map, marker)
+    })
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker)
+    })
+  }
 }

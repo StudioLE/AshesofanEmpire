@@ -7,9 +7,20 @@ html, body {
   line-height: 1;
 }
 
+h2 {
+  color: #fff;,
+  font-size: 11px;
+  display: none;
+}
+
+div:hover > h2 {
+  display: block;
+}
+
 #map {
   height: 100%;
   width: 100%;
+  color: #fff;
 }
 
 #coords {
@@ -22,5 +33,10 @@ html, body {
   border: 5px solid #fff;
   border-radius: 2px;
   box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+  color: #222;
   font-weight: bold;
+}
+
+.gm-style-iw {
+  color: #222;
 }

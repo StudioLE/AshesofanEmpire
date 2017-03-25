@@ -10,7 +10,9 @@
     "IconOverlay": false,
     "style": false,
     "distances": false,
-    "grid": false
+    "grid": false,
+    "map": false,
+    "icon": false
   },
   "asi": true
 }

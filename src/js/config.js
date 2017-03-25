@@ -1,5 +1,7 @@
 'use strict'
 
+var map, grid
+
 // Bespoke styles
 var style = {
   land: {
