@@ -5,6 +5,7 @@
     "document": false,
     "console": false,
     "google": false,
+    "ga": false,
     "$": false,
     "_": false,
     "IconOverlay": false,

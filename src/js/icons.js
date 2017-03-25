@@ -126,6 +126,7 @@ var icon = function(options) {
       marker.setOptions({
         opacity: 1
       })
+      ga('send', 'event', 'Icon', 'MouseOver', options.title)
     })
 
     google.maps.event.addListener(hex, 'mouseout', function() {
@@ -136,10 +137,12 @@ var icon = function(options) {
 
     google.maps.event.addListener(hex, 'click', function() {
       infowindow.open(map, marker)
+      ga('send', 'event', 'Icon', 'Click', options.title)
     })
 
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map, marker)
+      ga('send', 'event', 'Marker', 'Click', options.title)
     })
   }
 }
