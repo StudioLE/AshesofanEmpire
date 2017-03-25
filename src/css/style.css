@@ -8,13 +8,7 @@ html, body {
 }
 
 h2 {
-  color: #fff;,
-  font-size: 11px;
-  display: none;
-}
-
-div:hover > h2 {
-  display: block;
+  font-size: 13px;
 }
 
 #map {

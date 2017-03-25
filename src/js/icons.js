@@ -39,12 +39,6 @@ IconOverlay.prototype.onAdd = function() {
   div.style.alignItems = 'center';
   div.style.justifyContent = 'center';
 
-  var h2 = document.createElement('h2')
-
-  h2.innerHTML = 'Haven'
-
-  div.appendChild(h2)
-
   this.div_ = div
 
   // Add the element to the "overlayLayer" pane.
@@ -119,7 +113,7 @@ var icon = function(options) {
     })
 
     var infowindow = new google.maps.InfoWindow({
-      content: options.description
+      content: '<h2>' + options.title + '</h2><p>' + options.description + '</p>'
     })
 
     google.maps.event.addListener(hex, 'mouseover', function() {
