@@ -211,7 +211,7 @@ var initMap = function () {
     }
   }
   icon({
-    x: 44,
+    x: 40,
     y: 27,
     icon: 'img/icons/marker-icon-01-1x.png',
     scale: 1,
