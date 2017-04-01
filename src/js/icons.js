@@ -94,6 +94,15 @@ var icon = function(options) {
 
   if(options.title) {
 
+    var markerLabel = {
+      text: options.title,
+      color: '#fff',
+      // fontWeight: 'bold'
+      fontSize: '11px'
+    }
+
+    var markerOpacity = 1
+
     var marker = new google.maps.Marker({
       position: hex.center(),
       map: map,
@@ -104,12 +113,24 @@ var icon = function(options) {
         fillColor: '#fff',
         // strokeOpacity: 0
       },
-      label: {
-        text: options.title,
-        color: '#fff',
-        // fontWeight: 'bold'
-      },
-      opacity: 0
+      label: markerLabel,
+      opacity: markerOpacity
+    })
+
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      // Resize label on zoom
+      markerLabel.fontSize = map.getZoom() + 'px'
+      // Hide labels at higher zoom levels
+      if(map.getZoom() < 12) {
+        markerOpacity = 0
+      }
+      else {
+        markerOpacity = 1
+      }
+      marker.setOptions({
+        label: markerLabel,
+        opacity: markerOpacity
+      })
     })
 
     var infowindow = new google.maps.InfoWindow({
@@ -125,7 +146,7 @@ var icon = function(options) {
 
     google.maps.event.addListener(hex, 'mouseout', function() {
       marker.setOptions({
-        opacity: 0
+        opacity: markerOpacity
       })
     })
 
