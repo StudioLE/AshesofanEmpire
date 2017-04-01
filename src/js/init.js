@@ -163,15 +163,15 @@ var initMap = function () {
 
   // Draw Northern Mountains
   for(var x = 0; x < 10; x++) {
-    for(var y = 0; y < 4; y++) {
+    for(var y = 0; y < 6; y++) {
       new IconOverlay(
-        grid[16 + x * 3][39 - y * 1].bounds(),
+        grid[16 + x * 3][41 - y * 1].bounds(),
         '/img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
         map,
         4
       )
       new IconOverlay(
-        grid[17 + x * 3][39 - y * 1].bounds(),
+        grid[17 + x * 3][41 - y * 1].bounds(),
         '/img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
         map,
         4
@@ -180,14 +180,22 @@ var initMap = function () {
   }
   icon({
     x: 28,
-    y: 38,
+    y: 39,
     icon: '/img/icons/marker-icon-01-1x.png',
     scale: 1,
-    title: 'White Cap Mountains',
+    title: 'Goblins\' Teeth Mountains',
+    description: 'To the north you can see a sprawling mountain range in the distance'
+  })
+  icon({
+    x: 37,
+    y: 37,
+    icon: '/img/icons/marker-icon-01-1x.png',
+    scale: 1,
+    title: 'White Cap Mountain',
     description: 'To the north you can see a sprawling mountain range in the distance'
   })
 
-  // Draw Western Hills
+  // Draw Eastern Hills
   for(var x = 0; x < 2; x++) {
     for(var y = 0; y < 10; y++) {
       new IconOverlay(
@@ -240,10 +248,10 @@ var initMap = function () {
   }
 
   // Draw North East Woods
-  for(var x = 0; x < 7; x++) {
-    for(var y = 0; y < 2; y++) {
+  for(var x = 0; x < 3; x++) {
+    for(var y = 0; y < 5; y++) {
       new IconOverlay(
-        grid[31 + x][34 - y].bounds(),
+        grid[35 + x][34 - y].bounds(),
         '/img/patterns/trees-0' + getRandomInt(1, 5) + '-1x.png',
         map,
         1
@@ -253,16 +261,23 @@ var initMap = function () {
 
   // Draw Ruins of Haven
   var ruins = [
+    [19,26],
     [19,30],
+    [20,26],
     [20,29],
     [20,30],
+    [21,26],
     [21,28],
     [21,29],
     [21,30],
     [22,29],
     [22,30],
+    [23,26],
+    [23,27],
+    [23,28],
     [23,29],
-    [23,30]
+    [23,30],
+    [24,29]
   ]
   _.each(ruins, function(coord){
     new IconOverlay(
@@ -305,21 +320,35 @@ var initMap = function () {
 
   // Draw windmill
   icon({
-    x: 26,
-    y: 25,
+    x: 28,
+    y: 27,
     icon: '/img/icons/windmill-01-1x.png',
     scale: 1.5,
     title: 'The Mill',
     description: 'TBC'
   })
 
-  // Swamp
-  grid[27][24].setOptions(style.sea)
+  // Draw Obelisk
   icon({
-    x: 27,
-    y: 24,
-    icon: '/img/icons/sea-serpent-01-1x.png',
+    x: 26,
+    y: 27,
+    icon: '/img/icons/marker-icon-01-1x.png',
     scale: 0.5,
+    title: 'Obelisk',
+    description: 'Quartz Obelisk magically protected from weathering. Was found with a spear thrust deep into it with a sketelon hanging from it.'
+  })
+
+  // Swamp
+  for(var x = 0; x < 4; x++) {
+    for(var y = 0; y < 4; y++) {
+      grid[29 + x][24 + y].setOptions(style.sea)
+    }
+  }
+  icon({
+    x: 30,
+    y: 26,
+    icon: '/img/icons/sea-serpent-01-1x.png',
+    scale: 1,
     title: 'Swamp',
     description: 'Beside mill'
   })
@@ -331,7 +360,7 @@ var initMap = function () {
     icon: '/img/icons/tower-01-1x.png',
     scale: 1.5,
     title: 'The Manor',
-    description: 'The Manor its just south east past the logging camp.'
+    description: 'The Manor its just south east past the logging camp. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5zrr39/a_letter_found_the_graveyard_is_clear_another/)'
   })
 
   // Draw Logging Camp
@@ -379,8 +408,8 @@ var initMap = function () {
 
   // Draw The Quarry
   icon({
-    x: 24,
-    y: 26,
+    x: 30,
+    y: 35,
     icon: '/img/icons/outpost-01-1x.png',
     scale: 1.5,
     title: 'The Quarry',
@@ -389,8 +418,8 @@ var initMap = function () {
 
   // Draw The Mine
   icon({
-    x: 26,
-    y: 27,
+    x: 34,
+    y: 35,
     icon: '/img/icons/outpost-01-1x.png',
     scale: 1.5,
     title: 'The Mine',
@@ -399,18 +428,28 @@ var initMap = function () {
 
   // Draw Goblin Seige Workshop
   icon({
-    x: 29,
-    y: 18,
+    x: 24,
+    y: 37,
     icon: '/img/icons/orc-citadel-01-1x.png',
-    scale: 1,
+    scale: 1.5,
     title: 'Goblin Seige Workshop',
     description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
   })
 
+  // Draw Hobgoblin Fortress
+  icon({
+    x: 21,
+    y: 40,
+    icon: '/img/icons/orc-citadel-01-1x.png',
+    scale: 1.5,
+    title: 'Hobgoblin Fortress',
+    description: ''
+  })
+
   // Draw Goblin Training Camp'
   icon({
-    x: 26,
-    y: 21,
+    x: 23,
+    y: 34,
     icon: '/img/icons/orc-town-01-1x.png',
     scale: 1.25,
     title: 'Goblin Training Camp',
@@ -419,8 +458,8 @@ var initMap = function () {
 
   // Draw Warg Training Camp'
   icon({
-    x: 31,
-    y: 21,
+    x: 27,
+    y: 35,
     icon: '/img/icons/orc-town-01-1x.png',
     scale: 1.25,
     title: 'Warg Training Camp',
