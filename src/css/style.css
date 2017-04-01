@@ -2,13 +2,59 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Georgia, serif;
   font-size: 11px;
   line-height: 1;
 }
 
+body {
+  background: url(/img/textures/land-2-1x.jpg) no-repeat center center;
+  background-size: cover;
+}
+
+h1 {
+  text-align: center;
+  font-size: 32px;
+  font-style: italic;
+  font-weight: normal;
+}
+
 h2 {
   font-size: 13px;
+}
+
+p {
+  margin: 10px 0;
+}
+
+#index {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#index a {
+  padding: 20px;
+  display: block;
+  align-self: center;
+  flex-grow: 2;
+  color: #333;
+  font-size: 32px;
+  text-align: center;
+  text-decoration: none;
+}
+
+#index a:first-child {
+  flex-grow: 1;
+}
+
+#index a:hover {
+  opacity: 0.5;
+}
+
+#index a i {
+  font-size: 96px;
 }
 
 #map {
