@@ -113,7 +113,7 @@ var initMap = function () {
 
   // Add a textured background
   var texture = new google.maps.GroundOverlay(
-    'img/textures/land-2-1x.jpg',
+    '/img/textures/land-2-1x.jpg',
     imageBounds
   )
   texture.setMap(map);
@@ -155,7 +155,7 @@ var initMap = function () {
   icon({
     x: 13,
     y: 28,
-    icon: 'img/icons/marker-icon-01-1x.png',
+    icon: '/img/icons/marker-icon-01-1x.png',
     scale: 0.25,
     title: 'Scattered Islands',
     description: 'small islands scattered about'
@@ -166,13 +166,13 @@ var initMap = function () {
     for(var y = 0; y < 4; y++) {
       new IconOverlay(
         grid[16 + x * 3][39 - y * 1].bounds(),
-        'img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
+        '/img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
         map,
         4
       )
       new IconOverlay(
         grid[17 + x * 3][39 - y * 1].bounds(),
-        'img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
+        '/img/patterns/mountains-0' + getRandomInt(1, 9) + '-1x.png',
         map,
         4
       )
@@ -181,7 +181,7 @@ var initMap = function () {
   icon({
     x: 28,
     y: 38,
-    icon: 'img/icons/marker-icon-01-1x.png',
+    icon: '/img/icons/marker-icon-01-1x.png',
     scale: 1,
     title: 'Distant Mountains',
     description: 'To the north you can see a sprawling mountain range in the distance'
@@ -192,19 +192,19 @@ var initMap = function () {
     for(var y = 0; y < 10; y++) {
       new IconOverlay(
         grid[38 + x * 4][35 - y * 2].bounds(),
-        'img/patterns/hills-1x.png',
+        '/img/patterns/hills-1x.png',
         map,
         3
       )
       new IconOverlay(
         grid[39 + x * 4][34 - y * 2].bounds(),
-        'img/patterns/hills-1x.png',
+        '/img/patterns/hills-1x.png',
         map,
         2.5
       )
       new IconOverlay(
         grid[40 + x * 4][34 - y * 2].bounds(),
-        'img/patterns/hills-1x.png',
+        '/img/patterns/hills-1x.png',
         map,
         2
       )
@@ -213,7 +213,7 @@ var initMap = function () {
   icon({
     x: 40,
     y: 27,
-    icon: 'img/icons/marker-icon-01-1x.png',
+    icon: '/img/icons/marker-icon-01-1x.png',
     scale: 1,
     title: 'Distant Hills',
     description: 'to the east mostly flat lands with some rolling hills blocking further view past'
@@ -223,7 +223,7 @@ var initMap = function () {
   icon({
     x: 28,
     y: 20,
-    icon: 'img/icons/marker-icon-01-1x.png',
+    icon: '/img/icons/marker-icon-01-1x.png',
     scale: 0.25,
     title: 'Woods',
     description: 'Woods close by Haven'
@@ -232,7 +232,7 @@ var initMap = function () {
     for(var y = 0; y < 2; y++) {
       new IconOverlay(
         grid[24 + x][20 - y].bounds(),
-        'img/patterns/trees-0' + getRandomInt(1, 5) + '-1x.png',
+        '/img/patterns/trees-0' + getRandomInt(1, 5) + '-1x.png',
         map,
         1
       )
@@ -244,7 +244,7 @@ var initMap = function () {
     for(var y = 0; y < 2; y++) {
       new IconOverlay(
         grid[31 + x][34 - y].bounds(),
-        'img/patterns/trees-0' + getRandomInt(1, 5) + '-1x.png',
+        '/img/patterns/trees-0' + getRandomInt(1, 5) + '-1x.png',
         map,
         1
       )
@@ -267,7 +267,7 @@ var initMap = function () {
   _.each(ruins, function(coord){
     new IconOverlay(
       grid[coord[0]][coord[1]].bounds(),
-      'img/icons/ruins-01-1x.png',
+      '/img/icons/ruins-01-1x.png',
       map,
       1.25
     )
@@ -277,7 +277,7 @@ var initMap = function () {
   icon({
     x: 19,
     y: 28,
-    icon: 'img/icons/dock-01-1x.png',
+    icon: '/img/icons/dock-01-1x.png',
     scale: 1.25,
     title: 'Docks',
     description: 'ruins of a once majestic city’s dockyards district.'
@@ -287,7 +287,7 @@ var initMap = function () {
   icon({
     x: 22,
     y: 31,
-    icon: 'img/icons/temple-01-1x.png',
+    icon: '/img/icons/temple-01-1x.png',
     scale: 1.5,
     title: 'Cathedral',
     description: 'lone building still standing is a cathedral you can see on the far edge of the city'
@@ -297,7 +297,7 @@ var initMap = function () {
   icon({
     x: 21,
     y: 27,
-    icon: 'img/icons/town-01-1x.png',
+    icon: '/img/icons/town-01-1x.png',
     scale: 2,
     title: 'Town of Haven',
     description: 'The town, mostly human bar a few Halflings, are very welcoming to the sudden influx of strange adventures. The town deems to have the basic infrastructure of full village including farms, blacksmith, tavern, fletcher and a rundown guild hall. Due to the large population increase the town folk have put you up in a large warehouse. While exploring the town, being an adventurer, the notice board outside the tavern has caught your eye. The largely empty board has the following information written in notes of varying age. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/)'
@@ -307,7 +307,7 @@ var initMap = function () {
   icon({
     x: 26,
     y: 25,
-    icon: 'img/icons/windmill-01-1x.png',
+    icon: '/img/icons/windmill-01-1x.png',
     scale: 1.5,
     title: 'The Mill',
     description: 'TBC'
@@ -318,8 +318,8 @@ var initMap = function () {
   icon({
     x: 27,
     y: 24,
-    icon: 'img/icons/marker-icon-01-1x.png',
-    scale: 0.25,
+    icon: '/img/icons/sea-serpent-01-1x.png',
+    scale: 0.5,
     title: 'Swamp',
     description: 'Beside mill'
   })
@@ -328,7 +328,7 @@ var initMap = function () {
   icon({
     x: 23,
     y: 23,
-    icon: 'img/icons/tower-01-1x.png',
+    icon: '/img/icons/tower-01-1x.png',
     scale: 1.5,
     title: 'The Manor',
     description: 'The Manor its just south east past the logging camp.'
@@ -338,7 +338,7 @@ var initMap = function () {
   icon({
     x: 22,
     y: 25,
-    icon: 'img/icons/outpost-01-1x.png',
+    icon: '/img/icons/outpost-01-1x.png',
     scale: 1.5,
     title: 'Logging Camp',
     description: 'south east past the logging camp. VERY abandoned the yard looked hunky-dorey'
@@ -347,13 +347,13 @@ var initMap = function () {
   icon({
     x: 21,
     y: 24,
-    icon: 'img/patterns/trees-01-1x.png',
+    icon: '/img/patterns/trees-01-1x.png',
     scale: 1
   })
   icon({
     x: 22,
     y: 24,
-    icon: 'img/patterns/trees-02-1x.png',
+    icon: '/img/patterns/trees-02-1x.png',
     scale: 1
   })
 
@@ -361,7 +361,7 @@ var initMap = function () {
   icon({
     x: 27,
     y: 27,
-    icon: 'img/icons/village-01-1x.png',
+    icon: '/img/icons/village-01-1x.png',
     scale: 1.5,
     title: 'Farm',
     description: 'Halfling farm'
@@ -371,7 +371,7 @@ var initMap = function () {
   icon({
     x: 13,
     y: 20,
-    icon: 'img/icons/tower-02-1x.png',
+    icon: '/img/icons/tower-02-1x.png',
     scale: 1.5,
     title: 'Sea Fort',
     description: 'When I sailed into Haven I noticed a small island/ruin off to the south on my approach, at the time I thought nothing of it however we found some letters in the manor which suggest that the island is actually a fort. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/616ltl/sea_fort/)'
@@ -381,7 +381,17 @@ var initMap = function () {
   icon({
     x: 24,
     y: 26,
-    icon: 'img/icons/outpost-01-1x.png',
+    icon: '/img/icons/outpost-01-1x.png',
+    scale: 1.5,
+    title: 'The Quarry',
+    description: 'We have had no reports of what has taken over the quarry, as it was only abandoned by us this last week after running out of people to man it, and no-one spare to scout it out. As for the stone there is a seem of solid lime with a touch of slate. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/deru3cw/)'
+  })
+
+  // Draw The Mine
+  icon({
+    x: 24,
+    y: 26,
+    icon: '/img/icons/outpost-01-1x.png',
     scale: 1.5,
     title: 'The Quarry',
     description: 'We have had no reports of what has taken over the quarry, as it was only abandoned by us this last week after running out of people to man it, and no-one spare to scout it out. As for the stone there is a seem of solid lime with a touch of slate. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/deru3cw/)'
@@ -391,7 +401,7 @@ var initMap = function () {
   icon({
     x: 28,
     y: 21,
-    icon: 'img/icons/orc-citadel-01-1x.png',
+    icon: '/img/icons/orc-citadel-01-1x.png',
     scale: 1,
     title: 'Goblin Seige Workshop',
     description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
@@ -401,7 +411,7 @@ var initMap = function () {
   icon({
     x: 26,
     y: 23,
-    icon: 'img/icons/orc-town-01-1x.png',
+    icon: '/img/icons/orc-town-01-1x.png',
     scale: 1.25,
     title: 'Warg Training Camp',
     description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
