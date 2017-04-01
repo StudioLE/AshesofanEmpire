@@ -183,7 +183,7 @@ var initMap = function () {
     y: 38,
     icon: '/img/icons/marker-icon-01-1x.png',
     scale: 1,
-    title: 'Distant Mountains',
+    title: 'White Cap Mountains',
     description: 'To the north you can see a sprawling mountain range in the distance'
   })
 
@@ -360,7 +360,7 @@ var initMap = function () {
   // Draw Farm
   icon({
     x: 27,
-    y: 27,
+    y: 30,
     icon: '/img/icons/village-01-1x.png',
     scale: 1.5,
     title: 'Farm',
@@ -389,28 +389,38 @@ var initMap = function () {
 
   // Draw The Mine
   icon({
-    x: 24,
-    y: 26,
+    x: 26,
+    y: 27,
     icon: '/img/icons/outpost-01-1x.png',
     scale: 1.5,
-    title: 'The Quarry',
-    description: 'We have had no reports of what has taken over the quarry, as it was only abandoned by us this last week after running out of people to man it, and no-one spare to scout it out. As for the stone there is a seem of solid lime with a touch of slate. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/deru3cw/)'
+    title: 'The Mine',
+    description: ''
   })
 
   // Draw Goblin Seige Workshop
   icon({
-    x: 28,
-    y: 21,
+    x: 29,
+    y: 18,
     icon: '/img/icons/orc-citadel-01-1x.png',
     scale: 1,
     title: 'Goblin Seige Workshop',
     description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
   })
 
-  // Draw Warg Training Camp'
+  // Draw Goblin Training Camp'
   icon({
     x: 26,
-    y: 23,
+    y: 21,
+    icon: '/img/icons/orc-town-01-1x.png',
+    scale: 1.25,
+    title: 'Goblin Training Camp',
+    description: ''
+  })
+
+  // Draw Warg Training Camp'
+  icon({
+    x: 31,
+    y: 21,
     icon: '/img/icons/orc-town-01-1x.png',
     scale: 1.25,
     title: 'Warg Training Camp',
