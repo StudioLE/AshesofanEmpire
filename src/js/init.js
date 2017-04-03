@@ -152,15 +152,6 @@ var initMap = function () {
   grid[14][20].setOptions(style.land)
   grid[13][19].setOptions(style.land)
 
-  icon({
-    x: 13,
-    y: 28,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 0.25,
-    title: 'Scattered Islands',
-    description: 'small islands scattered about'
-  })
-
   // Draw Northern Mountains
   for(var x = 0; x < 10; x++) {
     for(var y = 0; y < 6; y++) {
@@ -178,22 +169,6 @@ var initMap = function () {
       )
     }
   }
-  icon({
-    x: 28,
-    y: 39,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 1,
-    title: 'Goblins\' Teeth Mountains',
-    description: 'To the north you can see a sprawling mountain range in the distance'
-  })
-  icon({
-    x: 37,
-    y: 37,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 1,
-    title: 'White Cap Mountain',
-    description: 'To the north you can see a sprawling mountain range in the distance'
-  })
 
   // Draw Eastern Hills
   for(var x = 0; x < 2; x++) {
@@ -218,24 +193,8 @@ var initMap = function () {
       )
     }
   }
-  icon({
-    x: 40,
-    y: 27,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 1,
-    title: 'Distant Hills',
-    description: 'to the east mostly flat lands with some rolling hills blocking further view past'
-  })
 
   // Draw Southern Woods
-  icon({
-    x: 28,
-    y: 20,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 0.25,
-    title: 'Woods',
-    description: 'Woods close by Haven'
-  })
   for(var x = 0; x < 8; x++) {
     for(var y = 0; y < 2; y++) {
       new IconOverlay(
@@ -288,90 +247,13 @@ var initMap = function () {
     )
   })
 
-  // Draw docks
-  icon({
-    x: 19,
-    y: 28,
-    icon: '/img/icons/dock-01-1x.png',
-    scale: 1.25,
-    title: 'Docks',
-    description: 'ruins of a once majestic city’s dockyards district.'
-  })
-
-  // Draw temple
-  icon({
-    x: 22,
-    y: 31,
-    icon: '/img/icons/temple-01-1x.png',
-    scale: 1.5,
-    title: 'Cathedral',
-    description: 'lone building still standing is a cathedral you can see on the far edge of the city'
-  })
-
-  // Draw town of Haven
-  icon({
-    x: 21,
-    y: 27,
-    icon: '/img/icons/town-01-1x.png',
-    scale: 2,
-    title: 'Town of Haven',
-    description: 'The town, mostly human bar a few Halflings, are very welcoming to the sudden influx of strange adventures. The town deems to have the basic infrastructure of full village including farms, blacksmith, tavern, fletcher and a rundown guild hall. Due to the large population increase the town folk have put you up in a large warehouse. While exploring the town, being an adventurer, the notice board outside the tavern has caught your eye. The largely empty board has the following information written in notes of varying age. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/)'
-  })
-
-  // Draw windmill
-  icon({
-    x: 28,
-    y: 27,
-    icon: '/img/icons/windmill-01-1x.png',
-    scale: 1.5,
-    title: 'The Mill',
-    description: 'TBC'
-  })
-
-  // Draw Obelisk
-  icon({
-    x: 26,
-    y: 27,
-    icon: '/img/icons/marker-icon-01-1x.png',
-    scale: 0.5,
-    title: 'Obelisk',
-    description: 'Quartz Obelisk magically protected from weathering. Was found with a spear thrust deep into it with a sketelon hanging from it.'
-  })
-
   // Swamp
   for(var x = 0; x < 4; x++) {
     for(var y = 0; y < 4; y++) {
       grid[29 + x][24 + y].setOptions(style.sea)
     }
   }
-  icon({
-    x: 30,
-    y: 26,
-    icon: '/img/icons/sea-serpent-01-1x.png',
-    scale: 1,
-    title: 'Swamp',
-    description: 'Beside mill'
-  })
-
-  // Draw The Manor
-  icon({
-    x: 23,
-    y: 23,
-    icon: '/img/icons/tower-01-1x.png',
-    scale: 1.5,
-    title: 'The Manor',
-    description: 'The Manor its just south east past the logging camp. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5zrr39/a_letter_found_the_graveyard_is_clear_another/)'
-  })
-
-  // Draw Logging Camp
-  icon({
-    x: 22,
-    y: 25,
-    icon: '/img/icons/outpost-01-1x.png',
-    scale: 1.5,
-    title: 'Logging Camp',
-    description: 'south east past the logging camp. VERY abandoned the yard looked hunky-dorey'
-  })
+  
   // Logging Woods
   icon({
     x: 21,
@@ -386,88 +268,10 @@ var initMap = function () {
     scale: 1
   })
 
-  // Draw Farm
-  icon({
-    x: 27,
-    y: 30,
-    icon: '/img/icons/village-01-1x.png',
-    scale: 1.5,
-    title: 'Farm',
-    description: 'Halfling farm'
+  // Create an icon for each location we get from Google Sheets
+  _.each(locations, function(location){
+    icon(location)
   })
-
-  // Draw Sea Fort
-  icon({
-    x: 13,
-    y: 20,
-    icon: '/img/icons/tower-02-1x.png',
-    scale: 1.5,
-    title: 'Sea Fort',
-    description: 'When I sailed into Haven I noticed a small island/ruin off to the south on my approach, at the time I thought nothing of it however we found some letters in the manor which suggest that the island is actually a fort. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/616ltl/sea_fort/)'
-  })
-
-  // Draw The Quarry
-  icon({
-    x: 30,
-    y: 35,
-    icon: '/img/icons/outpost-01-1x.png',
-    scale: 1.5,
-    title: 'The Quarry',
-    description: 'We have had no reports of what has taken over the quarry, as it was only abandoned by us this last week after running out of people to man it, and no-one spare to scout it out. As for the stone there is a seem of solid lime with a touch of slate. [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/5yng5m/adventure_start_box_text/deru3cw/)'
-  })
-
-  // Draw The Mine
-  icon({
-    x: 34,
-    y: 35,
-    icon: '/img/icons/outpost-01-1x.png',
-    scale: 1.5,
-    title: 'The Mine',
-    description: ''
-  })
-
-  // Draw Goblin Seige Workshop
-  icon({
-    x: 24,
-    y: 37,
-    icon: '/img/icons/orc-citadel-01-1x.png',
-    scale: 1.5,
-    title: 'Goblin Seige Workshop',
-    description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
-  })
-
-  // Draw Hobgoblin Fortress
-  icon({
-    x: 21,
-    y: 40,
-    icon: '/img/icons/orc-citadel-01-1x.png',
-    scale: 1.5,
-    title: 'Hobgoblin Fortress',
-    description: ''
-  })
-
-  // Draw Goblin Training Camp'
-  icon({
-    x: 23,
-    y: 34,
-    icon: '/img/icons/orc-town-01-1x.png',
-    scale: 1.25,
-    title: 'Goblin Training Camp',
-    description: ''
-  })
-
-  // Draw Warg Training Camp'
-  icon({
-    x: 27,
-    y: 35,
-    icon: '/img/icons/orc-town-01-1x.png',
-    scale: 1.25,
-    title: 'Warg Training Camp',
-    description: 'Klarg, assuming all has gone well at the mine, this package is to inform you of the on going operaitions so you can divert materials. The warg training camp in in need of new metal for chains to hold the buggers. The seige workshop will be needing 80% of all exports so we can finally get past that wall at haven. Some metal will be needed for the training camp as the new recruits lack proper equipment. Follwing these plans and with these camps active, it will make sure our new stronghold will be un-beatable [Source](https://www.reddit.com/r/TheAshesOfAnEmpire/comments/60624f/goblin_strongbox/)'
-  })
-
 
   map.setCenter(grid[21][27].center())
 }
-
-google.maps.event.addDomListener(window, 'load', initMap);

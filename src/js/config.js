@@ -2,6 +2,8 @@
 
 var map, grid
 
+var locations = []
+
 // Bespoke styles
 var style = {
   land: {

@@ -13,6 +13,7 @@
     "distances": false,
     "grid": false,
     "map": false,
+    "locations": false,
     "icon": false
   },
   "asi": true
