@@ -13,10 +13,10 @@ body {
 }
 
 h1 {
-  text-align: center;
   font-size: 32px;
   font-style: italic;
   font-weight: normal;
+  text-align: center;
 }
 
 h2 {
@@ -25,11 +25,13 @@ h2 {
 
 p {
   margin: 10px 0;
+  color: #426661;
 }
 
 #index {
   height: 100%;
   width: 100%;
+  background: rgba(166,147,117,0.5);
   display: flex;
   justify-content: space-around;
 }
@@ -40,7 +42,7 @@ p {
   align-self: center;
   flex-grow: 2;
   color: #333;
-  font-size: 32px;
+  font-size: 24px;
   text-align: center;
   text-decoration: none;
 }
@@ -54,7 +56,7 @@ p {
 }
 
 #index a i {
-  font-size: 96px;
+  font-size: 64px;
 }
 
 #map {
