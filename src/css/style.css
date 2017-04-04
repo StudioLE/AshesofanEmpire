@@ -8,8 +8,10 @@ html, body {
 }
 
 body {
-  background: url(/img/textures/land-2-1x.jpg) no-repeat center center;
+  background-image: linear-gradient(to right, rgba(166,147,117,0.5), rgba(166,147,117,0.5)),  url(/img/textures/land-2-1x.jpg);
+  background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
 }
 
 h1 {
@@ -29,10 +31,12 @@ p {
 }
 
 #index {
+  margin: 0 auto;
   height: 100%;
   width: 100%;
-  background: rgba(166,147,117,0.5);
+  max-width: 1200px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -49,6 +53,12 @@ p {
 
 #index a:first-child {
   flex-grow: 1;
+}
+
+@media (max-width: 767px) {
+  #index a:first-child {
+    flex-basis: 100%;
+  }
 }
 
 #index a:hover {
